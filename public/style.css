@@ -1,0 +1,22 @@
+body{
+    background-color: skyblue;
+    display: grid;
+    grid-template-columns: 3fr 4fr 3fr;
+}
+
+.name{
+    background-color: darkblue;
+}
+
+.messages{
+    height: 500px;
+    background-color: white;
+}
+
+.msgInput{
+    background-color: dodgerblue;
+}
+
+#username{
+    color: white;
+}

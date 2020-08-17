@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
+</head>
+<body>
+    <div></div>
+    <div class="name">
+        <h3  id = "username"></h3>
+    </div>
+    <div></div>
+    <div></div>
+    <div class="messages">
+        <audio id = 'audioMessage' controls>
+            <source src="http://10.0.0.248:8000/getAudioMessage">
+        </audio>
+    </div>
+    <div></div>
+    <div></div>
+    <div class="msgInput">
+        <input type="text" id = "msg">
+        <button id = "sendButton">send</button>
+    </div>
+    <div></div>
+    <div></div>
+    <div class="nameInput">
+        <input type="text" id = "nameInput">
+        <button id = "setName">set your name</button>
+    </div>
+    <div></div>
+    <script>
+        var x = document.getElementById("audioMessage");
+        const socket = io.connect("http://10.0.0.248:8000");
+        let msgBox = document.getElementById('msg');
+        let sendButton = document.getElementById('sendButton');
+        sendButton.addEventListener('click', ()=>{
+            console.log("here");
+            socket.emit('msg', {message: msgBox.value});
+        });
+        function sendMsg() {
+            console.log("here");
+            socket.emit('msg', {message: msgBox.value});
+        }
+        socket.on('newMsg', data =>{
+            console.log("Received new message");
+            x.src = "http://10.0.0.248:8000/getAudioMessage";
+        });
+
+        let setNameButton = document.getElementById("setName");
+        let nameInput = document.getElementById("nameInput");
+        let userName = document.getElementById("username");
+        setNameButton.addEventListener('click', ()=>{
+            let name = nameInput.value;
+            userName.innerText = name;
+        })
+    </script>
+</body>
+</html>
